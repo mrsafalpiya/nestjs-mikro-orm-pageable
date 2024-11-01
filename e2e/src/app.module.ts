@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 import { TestEntity } from './test.entity';
 
 @Module({
-    controllers: [AppController],
-    providers: [AppService],
-    imports: [MikroOrmModule.forRoot(mikroOrmConfig), MikroOrmModule.forFeature([TestEntity])]
+  controllers: [AppController],
+  providers: [AppService],
+  imports: [MikroOrmModule.forRoot(mikroOrmConfig), MikroOrmModule.forFeature([TestEntity])]
 })
 export class ApplicationModule {}
