@@ -25,9 +25,9 @@ repositories in [Nest.js](https://nestjs.com).
 
 ### Prerequisites
 
-- \>= Nest.js 8.0.0
-- \>= MikroORM 5.0.0
-- \>= Typescript 5.0.0
+- \>= Nest.js ^8 || ^9 || ^10
+- \>= MikroORM ^5.7 || ^6
+- \>= Typescript 5.0.4
 
 ### Installation
 
