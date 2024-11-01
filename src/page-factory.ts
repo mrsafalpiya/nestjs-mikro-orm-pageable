@@ -16,7 +16,8 @@ export class PageFactory<TEntity extends object, TOutput extends object = TEntit
         protected _map: (entity: TEntity & Dictionary) => TOutput & Dictionary = (entity) => entity as unknown as TOutput & Dictionary
     ) {
         this.query = query;
-        if (this.repo.constructor.name === 'QueryBuilder') {
+        // Could be QueryBuilder, MariaDbQueryBuilder, MsSqlQueryBuilder, ...
+        if (this.repo.constructor.name.endsWith('QueryBuilder')) {
             this.driverName = (this.repo as any).driver.constructor.name;
             this.isEntityRepository = false;
         } else {
