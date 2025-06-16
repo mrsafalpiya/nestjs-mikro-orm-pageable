@@ -1,6 +1,6 @@
 {
   "name": "@mrsafalpiya/nestjs-mikro-orm-paginate",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A query package for convenient pagination, filtering and sorting implementation with MikroORM repositories in Nest.js.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
