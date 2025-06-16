@@ -1,8 +1,9 @@
-import { EntityRepository, QueryBuilder } from '@mikro-orm/knex';
+import { EntityRepository, QueryBuilder, QueryBuilderHelper, SqlEntityRepository } from '@mikro-orm/knex';
 import { Dictionary } from '@mikro-orm/core';
 import { DriverName, ExtendedPaginateQuery, PaginateConfig, Paginated, Relation } from './types';
 import { getAlias, getQBQueryOrderMap } from './helpers';
 import { addFilter } from './filter';
+import { SOFT_DELETABLE } from 'mikro-orm-soft-delete';
 
 export class PageFactory<TEntity extends object, TOutput extends object = TEntity, TPage = Paginated<TOutput>> {
   protected driverName: DriverName | string;
@@ -93,6 +94,18 @@ export class PageFactory<TEntity extends object, TOutput extends object = TEntit
     if (!this.query.unpaged) {
       const difference = this.query.offset + this.query.itemsPerPage - totalItems;
       queryBuilder.offset(this.query.offset).limit(this.query.itemsPerPage - (difference > 0 ? difference : 0));
+    }
+
+    // Filter soft-deleted entities
+    if (this.isEntityRepository) {
+      if (!where || (where as unknown as any).deletedAt === undefined) {
+        const entityRepo = this.repo as SqlEntityRepository<TEntity>;
+        if (Reflect.hasMetadata(SOFT_DELETABLE, entityRepo.getEntityManager().getMetadata().get(entityRepo['entityName'].toString()).class)) {
+          queryBuilder.andWhere({
+            deletedAt: null
+          });
+        }
+      }
     }
 
     const result = await queryBuilder.getResultList();
