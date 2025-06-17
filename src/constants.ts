@@ -14,7 +14,7 @@ export const defaultPaginate: PaginateQuery = {
 export const DEFAULT_MAX_SIZE = 100;
 
 export const defaultPaginateOptions: Required<PaginateOptions> = {
-  enableUnpaged: false,
+  enableUnpaged: true,
   enableSize: true,
   enableSort: true,
   limit: null,
